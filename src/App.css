@@ -1,38 +1,98 @@
-.App {
-  text-align: center;
+/*************** standard colors **********************/
+
+:root {
+    --pure-white: #ffffff;
+    --dull-white: #f4f5f8;
+    --text-black: #2b2d33;
+    --border-gray: #e1e3e5;
+    --muted-text: #949495;
+    --highlight-blue: #5f6bd2;
+    --highlight-yellow: #f1c947;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+
+/*************** KanbanBoard Navbar ****************/
+.kanban-topbar-hzScroll {
+    background-color: var(--pure-white);
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    overflow-x: scroll;
+    scrollbar-width: none; /* hide scrollbar for Firefox */
+    -ms-overflow-style: none; /* hide scrollbar for IE and Edge */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+
+/*************** KanbanBoard ****************/
+.kanban-main-container {
+    background-color: var(--dull-white);
+    display: flex;
+    flex-direction: row;
+    height: calc(100vh - 50px);
+    width: 100vw;
+    overflow-x: scroll;
+    scroll-snap-type: x proximity;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.kanban-card-holder {
+    height: 100%;
+    min-width: 250px;
+    border: 1px solid var(--border-gray);
+    scroll-snap-align: start;
 }
 
-.App-link {
-  color: #61dafb;
+/**************** standard classes *****************/
+
+.flex {
+    display: flex;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.flex-column {
+    flex-direction: column;
+}
+
+.flex-row {
+    flex-direction: row;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.justify-around {
+    justify-content: space-around;
+}
+
+.justify-evenly {
+    justify-content: space-evenly;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.align-start {
+    align-items: flex-start;
+}
+
+.align-end {
+    align-items: flex-end;
+}
+
+.align-stretch {
+    align-items: stretch;
+}
+
+
+::-webkit-scrollbar {
+    display: none; /* hide scrollbar for Chrome, Safari and Opera */
 }
