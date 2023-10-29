@@ -1,25 +1,29 @@
 import React from "react";
+import { CardHolderProps } from "../types";
+import { PlusIcon, EllipsisHzIcon } from "../assets/icons";
 
-type CardHolderProps = {
-    children: React.ReactNode;
-    className?: string;
-    icon: React.ReactNode;
-    name: string;
-    count: number;
-} & React.HTMLAttributes<HTMLDivElement>;
+export const CardHolder = React.forwardRef<HTMLDivElement, CardHolderProps>(
+  ({ className, icon, name, count, ...props }, ref) => {
+    return (
+      <div className={`kanban-card-holder ${className}`} ref={ref} {...props}>
+        <div className="kanban-card-holder-header">
+          <div className="kanban-card-holder-header-info">
+            <div className="icon">{icon}</div>
+            <div className="heading-3">{name}</div>
+            <div className="muted-heading-3">{count}</div>
+          </div>
 
-const CardHolder = React.forwardRef<HTMLDivElement, CardHolderProps>(
-    ({ className, ...props }, ref) => {
-        return (
-            <div
-                className={`kanban-card-holder ${className}`}
-                ref={ref}
-                {...props}
-            >
-
-                {props.children}
+          <div className="kanban-card-holder-header-actions">
+            <div className="icon">
+              <PlusIcon />
             </div>
-        );
-    }
+            <div className="icon">
+              <EllipsisHzIcon />
+            </div>
+          </div>
+        </div>
+        {props.children}
+      </div>
+    );
+  }
 );
-

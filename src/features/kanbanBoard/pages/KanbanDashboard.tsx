@@ -1,4 +1,5 @@
-import { TopBar } from "../components";
+import { TopBar, CardHolder } from "../components";
+import { CheckCircleIcon } from "../assets/icons";
 
 const KanbanDashBoard = () => {
   return (
@@ -7,7 +8,9 @@ const KanbanDashBoard = () => {
         <div style={{ border: "1px solid black" }}> Feature1 </div>
       </TopBar>
       <div className="kanban-main-container">
-        <div className="kanban-card-container"></div>
+        <CardHolder name="To do" icon={<CheckCircleIcon/>} count={10} >
+
+        </CardHolder>
         <div className="kanban-card-container"></div>
         <div className="kanban-card-container"></div>
         <div className="kanban-card-container"></div>

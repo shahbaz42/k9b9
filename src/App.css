@@ -10,7 +10,6 @@
     --highlight-yellow: #f1c947;
 }
 
-
 /*************** KanbanBoard Navbar ****************/
 .kanban-topbar-hzScroll {
     background-color: var(--pure-white);
@@ -42,7 +41,48 @@
     scroll-snap-align: start;
 }
 
+.kanban-card-holder-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.kanban-card-holder-header-info{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.kanban-card-holder-header-actions{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 /**************** standard classes *****************/
+
+.heading-3 {
+
+}
+
+.muted-heading-3 {
+
+}
+
+.w-6{
+    width:24px;
+}
+
+.h-6{
+    height:24px;
+}
+
+.icon{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 
 .flex {
     display: flex;
