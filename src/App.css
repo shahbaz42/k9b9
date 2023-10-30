@@ -326,6 +326,14 @@
   width: 20px;
 }
 
+.w-4{
+  width: 16px;
+}
+
+.h-4{
+  height: 16px;
+}
+
 .h-6 {
   height: 24px;
 }

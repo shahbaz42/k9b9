@@ -8,7 +8,7 @@ export interface SmallMenuBoxProps {
 export const SmallMenuBox = React.forwardRef<HTMLDivElement, SmallMenuBoxProps>(
   ({ children, className }, ref) => {
     return (
-      <div ref={ref} className={`small-menu-box ${className}`}>
+      <div ref={ref} style={{zIndex: 99}} className={`small-menu-box ${className}`}>
         {children}
       </div>
     );

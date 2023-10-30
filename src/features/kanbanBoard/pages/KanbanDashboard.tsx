@@ -1,16 +1,17 @@
 import { useEffect, useContext } from "react";
-import axios from "axios";
 import {
   TopBar,
   TicketCardHolder,
   TicketCard,
   ButtonWithPopupMenu,
+  AvatarWithAvailability,
 } from "../components";
-import { CheckCircleIcon } from "../assets/icons";
 import { DataContext } from "../contexts";
+import { getStatusIcon, getPriorityIcon, getAvailabilty } from "../utils";
+import { APIData } from "../types";
 
 const KanbanDashBoardPage = () => {
-  const { data, setData, groupedData, DisplayConfig, setDisplayConfig, createNewTicket } =
+  const { data, setData, groupedData, DisplayConfig, setDisplayConfig } =
     useContext(DataContext);
 
   useEffect(() => {
@@ -32,22 +33,6 @@ const KanbanDashBoardPage = () => {
             setConfig={setDisplayConfig}
           />
         </div>
-        <div>
-          <button className="" onClick={
-            () => {
-              createNewTicket({
-                id: "123",
-                title: "New Ticket",
-                tag: ["tag1", "tag2"],
-                userId: "usr-1",
-                status: "Todo",
-                priority: 1,
-              });
-            }
-          }>
-            New Ticket
-          </button>
-        </div>
       </TopBar>
       <div className="kanban-main-container">
         {groupedData &&
@@ -55,7 +40,18 @@ const KanbanDashBoardPage = () => {
             return (
               <TicketCardHolder
                 name={group.name}
-                statusIcon={<CheckCircleIcon />}
+                statusIcon={
+                  groupedData.groupedBy === "status" ? (
+                    getStatusIcon(group.name)
+                  ) : groupedData.groupedBy === "priority" ? (
+                    getPriorityIcon(Number(group.name))
+                  ) : (
+                    <AvatarWithAvailability
+                      avatarText={group.name[0]}
+                      isAvailable={getAvailabilty(group.name, data as APIData)}
+                    />
+                  )
+                }
                 count={group.tickets.length}
                 key={index}
               >
@@ -65,21 +61,31 @@ const KanbanDashBoardPage = () => {
                       ?.split(" ")
                       .map((name) => name[0].toUpperCase())
                       .join("") || "";
+
+                  {
+                    console.log(ticket.status);
+                  }
                   return (
                     <TicketCard
                       className="mt-3"
                       ticketId={ticket.id}
                       title={ticket.title}
                       status={ticket.status}
-                      statusIcon={<CheckCircleIcon />}
+                      statusIcon={getStatusIcon(ticket.status)}
                       userId={ticket.user?.id || ""}
                       userIconText={initials}
                       userAvailablity={ticket.user?.available || false}
                       priority={ticket.priority}
                       tags={ticket.tag}
-                      showUserIcon={ groupedData.groupedBy === "user" ? false : true}
-                      showStatusIcon={ groupedData.groupedBy === "status" ? false : true}
-                      showPriorityIcon={ groupedData.groupedBy === "priority" ? false : true}
+                      showUserIcon={
+                        groupedData.groupedBy === "user" ? false : true
+                      }
+                      showStatusIcon={
+                        groupedData.groupedBy === "status" ? false : true
+                      }
+                      showPriorityIcon={
+                        groupedData.groupedBy === "priority" ? false : true
+                      }
                       key={index}
                     />
                   );

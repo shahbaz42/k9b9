@@ -2,6 +2,7 @@ import React from "react";
 import { PriorityIcon } from "../assets/icons";
 import { AvatarWithAvailability, TagWithCircle } from "./ui";
 import { TicketCardProps } from "../types";
+import { getPriorityIcon } from "../utils";
 
 export const TicketCard = React.forwardRef<HTMLDivElement, TicketCardProps>(
   (
@@ -41,7 +42,7 @@ export const TicketCard = React.forwardRef<HTMLDivElement, TicketCardProps>(
         <div className="ticket-card-footer mt-3">
           {showPriorityIcon && (
             <div className="icon grey-icon">
-              <PriorityIcon />
+              {getPriorityIcon(priority) || <PriorityIcon />}
             </div>
           )}
           {tags &&

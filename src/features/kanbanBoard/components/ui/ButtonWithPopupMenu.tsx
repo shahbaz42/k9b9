@@ -26,7 +26,8 @@ export const ButtonWithPopupMenu = React.forwardRef<
           <ChevronDownIcon />
         </div>
       </button>
-        {isMenuOpen && (
+      {isMenuOpen && (
+        <>
           <SmallMenuBox className="absolute">
             <SelectWithLabel
               label="Group by"
@@ -42,7 +43,7 @@ export const ButtonWithPopupMenu = React.forwardRef<
             <SelectWithLabel
               className="mt-2"
               label="Sort by"
-              options={["select","priority", "title"]}
+              options={["select", "priority", "title"]}
               value={config.sortBy}
               setValue={(value) => {
                 props.setConfig((prev) => ({
@@ -52,7 +53,11 @@ export const ButtonWithPopupMenu = React.forwardRef<
               }}
             />
           </SmallMenuBox>
-        )}
+          <div className="absolute" onClick={()=>{setIsMenuOpen(false)}} style={{height: "100vh", width:"100vw"}}>
+
+          </div>
+        </>
+      )}
     </>
   );
 });

@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import { TicketCardHolderProps } from "../types";
 import { PlusIcon, EllipsisHzIcon, XMarkIcon } from "../assets/icons";
 import { DataContext } from "../contexts";
+import { PriorityMap } from "../utils";
 
 export const TicketCardHolder = React.forwardRef<
   HTMLDivElement,
   TicketCardHolderProps
 >(({ className = "", statusIcon, name, count, ...props }, ref) => {
-  const { data, createNewTicket } = React.useContext(DataContext);
+  const { data, createNewTicket, groupedData } = React.useContext(DataContext);
 
   const [addingTicket, setAddingTicket] = useState(false);
 
@@ -74,7 +75,7 @@ export const TicketCardHolder = React.forwardRef<
       <div className="ticket-card-holder-header">
         <div className="ticket-card-holder-header-info">
           <div className="icon">{statusIcon}</div>
-          <div className="heading-3">{name}</div>
+          <div className="heading-3">{ groupedData?.groupedBy==="priority" ? PriorityMap[Number(name)] : name }</div>
           <div className="muted-heading-3">{count}</div>
         </div>
 
