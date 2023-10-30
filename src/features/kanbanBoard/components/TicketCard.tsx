@@ -40,7 +40,7 @@ export const TicketCard = React.forwardRef<HTMLDivElement, TicketCardProps>(
         </div>
         <div className="ticket-card-footer mt-3">
           {showPriorityIcon && (
-            <div className="icon">
+            <div className="icon grey-icon">
               <PriorityIcon />
             </div>
           )}

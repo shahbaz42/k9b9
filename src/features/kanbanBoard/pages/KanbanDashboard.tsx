@@ -1,7 +1,16 @@
+import { useEffect, useContext } from "react";
+import axios from "axios";
 import { TopBar, TicketCardHolder, TicketCard } from "../components";
 import { CheckCircleIcon } from "../assets/icons";
+import { DataContext } from "../contexts";
 
-const KanbanDashBoard = () => {
+const KanbanDashBoardPage = () => {
+  const { data, setData } = useContext(DataContext);
+
+  useEffect(() => {
+    console.log(data)
+  }, [data]);
+
   return (
     <>
       <TopBar type="hzScroll" height={64}>
@@ -193,10 +202,9 @@ const KanbanDashBoard = () => {
             showPriorityIcon={true}
           />
         </TicketCardHolder>
-
       </div>
     </>
   );
 };
 
-export { KanbanDashBoard };
+export { KanbanDashBoardPage };

@@ -1,3 +1,27 @@
+/*************** Contexts  *********************/
+
+export interface Ticket {
+  id: string;
+  title: string;
+  tag: string[];
+  userId: string;
+  status: string;
+  priority: number;
+}
+
+export interface User {
+  id: string;
+  name: string;
+  available: boolean;
+}
+
+export interface APIData {
+  tickets: Ticket[];
+  users: User[];
+}
+
+/*********** Components *********************/
+
 export type TopBarProps = {
   children: React.ReactNode;
   type?: "hzScroll" | "collapsible";

@@ -1,2 +1,14 @@
-// Reexporting all features so that they can be imported from a single file
-export * from "./kanbanBoard";
+import { KanbanDashBoardPage } from "./kanbanBoard";
+import { DataProvider } from "./kanbanBoard/contexts";
+
+const KanbanDashBoard = () => {
+  return (
+    <>
+      <DataProvider>
+        <KanbanDashBoardPage />
+      </DataProvider>
+    </>
+  );
+};
+
+export { KanbanDashBoard };
