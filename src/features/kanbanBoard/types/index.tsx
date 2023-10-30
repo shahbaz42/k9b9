@@ -19,7 +19,7 @@ export type TicketCardProps = {
   status: string;
   statusIcon: React.ReactNode;
   userId: string;
-  userIcon: React.ReactNode;
+  userIconText: string;
   userAvailablity: boolean;
   priority: number;
   tags: string[];
@@ -27,3 +27,17 @@ export type TicketCardProps = {
   showStatusIcon?: boolean;
   showPriorityIcon?: boolean;
 } & React.HTMLAttributes<HTMLDivElement>;
+
+/***************  UI Components **************/
+
+export type AvatarWithAvailabilityProps = {
+  avatarText: string;
+  isAvailable: boolean;
+  avatarUrl?: string;
+};
+
+export type TagWithCircleProps = {
+    className?: string;
+    color?: string;
+    tagText?: string;
+};

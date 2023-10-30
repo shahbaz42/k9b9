@@ -20,7 +20,7 @@ const KanbanDashBoard = () => {
             status="Todo"
             statusIcon={<CheckCircleIcon />}
             userId="1"
-            userIcon={<CheckCircleIcon />}
+            userIconText="SA"
             userAvailablity={true}
             priority={5}
             tags={["Bug", "Feature"]}
@@ -36,7 +36,7 @@ const KanbanDashBoard = () => {
             status="Todo"
             statusIcon={<CheckCircleIcon />}
             userId="1"
-            userIcon={<CheckCircleIcon />}
+            userIconText="SA"
             userAvailablity={true}
             priority={5}
             tags={["Bug", "Feature"]}

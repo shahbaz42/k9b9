@@ -21,7 +21,7 @@ const TopBar = React.forwardRef<HTMLDivElement, TopBarProps>(
                         style={{ height }}
                         {...props}
                     >
-                        {/* To Do : To Implement vertically draggable TopBar like Topbar it Later */}
+                        {/* To Do : To Implement vertically draggable TopBar like Topbar Later */}
                     </div>
                 )}
             </>

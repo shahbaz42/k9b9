@@ -1,5 +1,6 @@
 import React from "react";
 import { PriorityIcon } from "../assets/icons";
+import { AvatarWithAvailability, TagWithCircle } from "./ui";
 import { TicketCardProps } from "../types";
 
 export const TicketCard = React.forwardRef<HTMLDivElement, TicketCardProps>(
@@ -11,7 +12,7 @@ export const TicketCard = React.forwardRef<HTMLDivElement, TicketCardProps>(
       status,
       statusIcon,
       userId,
-      userIcon,
+      userIconText,
       userAvailablity,
       priority,
       tags,
@@ -23,23 +24,19 @@ export const TicketCard = React.forwardRef<HTMLDivElement, TicketCardProps>(
     ref
   ) => {
     return (
-      <div className={`${className}`}>
+      <div ref={ref} className={`${className}`}>
         <div className="ticket-card-header">
           <div className="muted-heading-3">{ticketId}</div>
           {showUserIcon && (
-            <div className="user-icon">
-              {" "}
-              {/*todo : isolate this component */}
-              <div className="relative">
-                <div className="icon">{userIcon}</div>
-                <div className="user-status-icon absolute">x</div>
-              </div>
-            </div>
+            <AvatarWithAvailability
+              avatarText={userIconText}
+              isAvailable={userAvailablity}
+            />
           )}
         </div>
         <div className="ticket-card-title">
           {showStatusIcon && <div className="icon">{statusIcon}</div>}
-          <div className="heading-3">{title}</div>
+          <div className="heading-3 ticket-title">{title}</div>
         </div>
         <div className="ticket-card-footer">
           {showPriorityIcon && (
@@ -47,11 +44,18 @@ export const TicketCard = React.forwardRef<HTMLDivElement, TicketCardProps>(
               <PriorityIcon />
             </div>
           )}
-          {
-            tags && tags.map((tag, index) => {
-              return <div key={index} className="tag">{tag}</div>;
-            })
-          }
+          {tags &&
+            tags.map((tag, index) => {
+              return (
+                <TagWithCircle
+                  key={index}
+                  className="ml-2"
+                  color="#
+                  #c6c7c8"
+                  tagText={tag}
+                />
+              );
+            })}
         </div>
       </div>
     );
