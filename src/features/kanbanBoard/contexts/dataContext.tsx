@@ -7,7 +7,7 @@ import React, {
   ReactNode,
 } from "react";
 import axios from "axios";
-import { APIData, DataContextProps, GroupedData } from "../types";
+import { APIData, DataContextProps, GroupedData, groupBy } from "../types";
 import { groupDataBy } from "../utils";
 
 export const DataContext = createContext<DataContextProps>({
@@ -16,6 +16,11 @@ export const DataContext = createContext<DataContextProps>({
   isLoading: false,
   groupedData: null,
   setGroupedData: () => {},
+  DisplayConfig: {
+    groupBy: "status",
+    sortBy: "priority",
+  },
+  setDisplayConfig: () => {},
 });
 
 export const DataProvider: FC<{ children: ReactNode }> = ({ children }) => {
@@ -24,9 +29,10 @@ export const DataProvider: FC<{ children: ReactNode }> = ({ children }) => {
     users: [],
   });
   const [groupedData, setGroupedData] = useState<GroupedData | null>(null);
-  const [groupBy, setGroupBy] = useState<"status" | "priority" | "user">(
-    "status"
-  ); // "status" | "priority" | "user
+  const [DisplayConfig, setDisplayConfig] = useState({
+    groupBy: "status",
+    sortBy: "priority",
+  });
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -54,10 +60,14 @@ export const DataProvider: FC<{ children: ReactNode }> = ({ children }) => {
   }, []);
 
   useEffect(() => {
+    console.log("grouping data")
     if (data) {
-      setGroupedData(groupDataBy(data, groupBy));
+      console.log(DisplayConfig)
+      console.log(groupDataBy(data, DisplayConfig.groupBy as groupBy))
+
+      setGroupedData(groupDataBy(data, DisplayConfig.groupBy as groupBy))
     }
-  }, [groupBy, data]);
+  }, [DisplayConfig, data]);
 
   const value = {
     data,
@@ -65,8 +75,8 @@ export const DataProvider: FC<{ children: ReactNode }> = ({ children }) => {
     isLoading,
     groupedData,
     setGroupedData,
-    groupBy,
-    setGroupBy,
+    DisplayConfig,
+    setDisplayConfig,
   };
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;

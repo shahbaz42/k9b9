@@ -1,58 +1,76 @@
 import { useEffect, useContext } from "react";
 import axios from "axios";
-import { TopBar, TicketCardHolder, TicketCard } from "../components";
+import {
+  TopBar,
+  TicketCardHolder,
+  TicketCard,
+  ButtonWithPopupMenu,
+} from "../components";
 import { CheckCircleIcon } from "../assets/icons";
 import { DataContext } from "../contexts";
 
 const KanbanDashBoardPage = () => {
-  const { data, setData, groupedData } = useContext(DataContext);
+  const { data, setData, groupedData, DisplayConfig, setDisplayConfig } =
+    useContext(DataContext);
 
   useEffect(() => {
-    console.log(data)
-    console.log(groupedData)
+    console.log(data);
+    console.log(groupedData);
   }, [data]);
+
+  useEffect(() => {
+    console.log(DisplayConfig);
+  }, [DisplayConfig]);
 
   return (
     <>
-      <TopBar type="hzScroll" height={64}>
-        <div style={{ border: "1px solid black" }}> Feature1</div>
+      <TopBar type="hzScroll" className="topbar-container" height={64}>
+        <div className="ml-2">
+          {" "}
+          <ButtonWithPopupMenu
+            config={DisplayConfig}
+            setConfig={setDisplayConfig}
+          />
+        </div>
       </TopBar>
       <div className="kanban-main-container">
-        {
-          groupedData && groupedData.groups.map((group, index) => {
-            return(
+        {groupedData &&
+          groupedData.groups.map((group, index) => {
+            return (
               <TicketCardHolder
                 name={group.name}
                 statusIcon={<CheckCircleIcon />}
                 count={group.tickets.length}
                 key={index}
               >
-                {
-                  group.tickets.map((ticket, index) => {
-                    return(
-                      <TicketCard
-                        className="mt-3"
-                        ticketId={ticket.id}
-                        title={ticket.title}
-                        status={ticket.status}
-                        statusIcon={<CheckCircleIcon />}
-                        userId={ticket.user?.id || ""}
-                        userIconText={ticket.user?.name || ""}
-                        userAvailablity={ticket.user?.available || false}
-                        priority={ticket.priority}
-                        tags={ticket.tag}
-                        showUserIcon={true}
-                        showStatusIcon={true}
-                        showPriorityIcon={true}
-                        key={index}
-                      />
-                    )
-                  })
-                }
+                {group.tickets.map((ticket, index) => {
+                  const initials =
+                    ticket.user?.name
+                      ?.split(" ")
+                      .map((name) => name[0].toUpperCase())
+                      .join("") || "";
+                  return (
+                    <TicketCard
+                      className="mt-3"
+                      ticketId={ticket.id}
+                      title={ticket.title}
+                      status={ticket.status}
+                      statusIcon={<CheckCircleIcon />}
+                      userId={ticket.user?.id || ""}
+                      userIconText={initials}
+                      userAvailablity={ticket.user?.available || false}
+                      priority={ticket.priority}
+                      tags={ticket.tag}
+                      showUserIcon={ groupedData.groupedBy === "user" ? false : true}
+                      showStatusIcon={true}
+                      showPriorityIcon={true}
+                      key={index}
+                    />
+                  );
+                })}
               </TicketCardHolder>
-            )
-          })
-        }
+            );
+          })}
       </div>
     </>
   );

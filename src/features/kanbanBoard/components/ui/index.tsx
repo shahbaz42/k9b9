@@ -1,2 +1,5 @@
 export * from './AvatarWithAvailability'
 export * from './TagWithCircle'
+export * from './ButtonWithPopupMenu'
+export * from './SmallMenuBox'
+export * from './SelectWithLabel'

@@ -1,0 +1,58 @@
+import React, { useState } from "react";
+import { SettingsIcon, ChevronDownIcon } from "../../assets/icons";
+import { SmallMenuBox } from ".";
+import { SelectWithLabel } from ".";
+import { ButtonWithPopupMenuProps, groupBy } from "../../types";
+
+export const ButtonWithPopupMenu = React.forwardRef<
+  HTMLButtonElement,
+  ButtonWithPopupMenuProps
+>(({ config, className, ...props }, ref) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  return (
+    <>
+      <button
+        ref={ref}
+        {...props}
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        className="button-with-popup-menu"
+      >
+        <div className="icon">
+          <SettingsIcon />
+        </div>
+        <div className="text-semibold">Display</div>
+        <div className="icon">
+          <ChevronDownIcon />
+        </div>
+      </button>
+        {isMenuOpen && (
+          <SmallMenuBox className="absolute">
+            <SelectWithLabel
+              label="Group by"
+              options={["user", "status", "priority"]}
+              value={config.groupBy}
+              setValue={(value) => {
+                props.setConfig((prev) => ({
+                  ...prev,
+                  groupBy: value as groupBy,
+                }));
+              }}
+            />
+            <SelectWithLabel
+              className="mt-2"
+              label="Sort by"
+              options={["priority"]}
+              value={config.sortBy}
+              setValue={(value) => {
+                props.setConfig((prev) => ({
+                  ...prev,
+                  sortBy: value as groupBy,
+                }));
+              }}
+            />
+          </SmallMenuBox>
+        )}
+    </>
+  );
+});

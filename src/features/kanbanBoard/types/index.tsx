@@ -6,6 +6,15 @@ export interface DataContextProps {
   isLoading: boolean;
   groupedData: GroupedData | null;
   setGroupedData: React.Dispatch<React.SetStateAction<GroupedData | null>>;
+  DisplayConfig: DisplayConfig;
+  setDisplayConfig: React.Dispatch<React.SetStateAction<DisplayConfig>>;
+}
+
+export type groupBy = "status" | "priority" | "user";
+
+export interface DisplayConfig {
+  groupBy: ("status" | "priority" | "user");
+  sortBy: ("status" | "priority" | "user");
 }
 
 export interface Ticket {
@@ -48,6 +57,19 @@ export interface GroupedData {
 }
 
 /*********** Components *********************/
+export interface ButtonWithPopupMenuProps {
+  className?: string;
+  config: DisplayConfig;
+  setConfig: React.Dispatch<React.SetStateAction<DisplayConfig>>;
+}
+
+export interface SelectWithLabelProps {
+  className?: string;
+  label: string;
+  options: string[];
+  value: string;
+  setValue: (v: string) => void ;
+}
 
 export type TopBarProps = {
   children: React.ReactNode;
@@ -88,7 +110,7 @@ export type AvatarWithAvailabilityProps = {
 };
 
 export type TagWithCircleProps = {
-    className?: string;
-    color?: string;
-    tagText?: string;
+  className?: string;
+  color?: string;
+  tagText?: string;
 };

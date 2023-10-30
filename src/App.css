@@ -25,6 +25,7 @@
 }
 
 /*************** KanbanBoard ****************/
+
 .kanban-main-container {
   background-color: var(--dull-white);
   display: flex;
@@ -33,6 +34,16 @@
   width: 100vw;
   overflow-x: scroll;
   scroll-snap-type: x mandatory;
+}
+
+.topbar-container {
+  margin: 0 0 0 48px;
+}
+
+@media (max-width: 575.98px) {
+  .topbar-container {
+    margin: 0;
+  }
 }
 
 .ticket-card-holder {
@@ -120,23 +131,57 @@
 
 /*************** UI Components ****************/
 
-/* AvatarWithStatus */
-
-.avatar-text{
-  font-size: 14px;
-  left:4px;
-  top:2px;
-  font-weight: 500;
-  color: var(--pure-white)
+/* Small Menu Box */
+.small-menu-box {
+  width: 250px;
+  top : 55px;
+  background-color: var(--pure-white);
+  padding: 20px;
+  border-radius: var(--rounded-border);
+  box-shadow: 2px 2px 77px -34px rgba(0, 0, 0, 0.521);
+  border: 1px solid var(--border-gray);
 }
 
-.avatar-icon{
+/* SelectWithLabel */
+.select-with-label {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.select-comp{
+  height:30px;
+  width: 120px;
+  font-weight: 500;
+  padding: 0 4px;
+  background-color: var(--dull-white);
+  border-radius: 8px;
+  border: 1px solid var(--border-gray);
+}
+
+.select-comp:focus {
+  outline: none;
+}
+
+/* AvatarWithStatus */
+
+.avatar-text {
+  width: 100%;
+  font-size: 14px;
+  top: 2px;
+  font-weight: 500;
+  color: var(--pure-white);
+  text-align: center;
+}
+
+.avatar-icon {
   height: 24px;
   width: 24px;
   border-radius: 100%;
 }
 
-.user-status-icon{
+.user-status-icon {
   height: 8px;
   width: 8px;
   border-radius: 100%;
@@ -171,12 +216,24 @@
 }
 
 .tag-text {
-  color: var(--muted-text)
+  color: var(--muted-text);
 }
 
 /* Priority Icon */
 .grey-icon {
   color: var(--muted-text);
+}
+
+/* Button with popup menu */
+.button-with-popup-menu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: var(--rounded-border);
+  border: 1px solid var(--border-gray);
+  cursor: pointer;
 }
 
 /**************** standard classes *****************/
@@ -192,11 +249,15 @@
   color: var(--muted-text);
 }
 
-.w-4{
+.text-semibold {
+  font-weight: 600;
+}
+
+.w-4 {
   width: 16px;
 }
 
-.h-5{
+.h-5 {
   height: 20px;
 }
 
@@ -214,6 +275,10 @@
 
 .ml-2 {
   margin-left: 8px;
+}
+
+.ml-12 {
+  margin-left: 48px;
 }
 
 .mt-3 {
