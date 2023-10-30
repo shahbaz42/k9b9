@@ -8,6 +8,7 @@ export interface DataContextProps {
   setGroupedData: React.Dispatch<React.SetStateAction<GroupedData | null>>;
   DisplayConfig: DisplayConfig;
   setDisplayConfig: React.Dispatch<React.SetStateAction<DisplayConfig>>;
+  createNewTicket: (ticket: Ticket) => void;
 }
 
 export type groupBy = "status" | "priority" | "user";

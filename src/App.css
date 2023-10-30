@@ -5,8 +5,10 @@
   --dull-white: #f4f5f8;
   --text-black: #2b2d33;
   --border-gray: #e1e3e5c5;
+  --dark-border-gray: #c4c4c4;
   --muted-text: #949495;
   --highlight-blue: #5f6bd2;
+  --bright-blue: #4d79ff;
   --highlighted-yellow: #f1c947;
   --highlighted-green: #00b894;
   --rounded-border: 10px;
@@ -55,7 +57,7 @@
   scroll-snap-align: start;
 }
 
-.ticket-card-holder-content{
+.ticket-card-holder-content {
   height: calc(100% - 100px);
   overflow-y: scroll;
   scrollbar-width: none; /* hide scrollbar for Firefox */
@@ -138,10 +140,62 @@
 
 /*************** UI Components ****************/
 
+.hz-input-group {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.input-comp {
+  height: 30px;
+  width: 200px;
+  font-weight: 500;
+  padding: 0 4px;
+  background-color: var(--pure-white);
+  border-radius: 8px;
+  border: 1px solid var(--border-gray);
+}
+
+.hz-input-group > .disabled{
+  background-color: var(--dull-white);
+  border: 1px solid var(--border-gray);
+  color: var(--muted-text);
+}
+
+.dark-border {
+  border: 1px solid var(--dark-border-gray);
+}
+
+.btn-left-wrapper{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: right;
+}
+
+/* Create Button */
+.create_button{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: var(--rounded-border);
+  border: 1px solid var(--border-gray);
+  background-color: var(--bright-blue);
+  color: var(--pure-white);
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+}
+
 /* Small Menu Box */
 .small-menu-box {
   width: 250px;
-  top : 55px;
+  top: 55px;
   background-color: var(--pure-white);
   padding: 20px;
   border-radius: var(--rounded-border);
@@ -157,8 +211,8 @@
   align-items: center;
 }
 
-.select-comp{
-  height:30px;
+.select-comp {
+  height: 30px;
   width: 120px;
   font-weight: 500;
   padding: 0 4px;
@@ -292,10 +346,19 @@
   margin-top: 12px;
 }
 
+.px-2{
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
 .icon {
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+
+.btn {
+  cursor: pointer;
 }
 
 .absolute {

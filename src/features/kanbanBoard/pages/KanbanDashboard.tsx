@@ -10,7 +10,7 @@ import { CheckCircleIcon } from "../assets/icons";
 import { DataContext } from "../contexts";
 
 const KanbanDashBoardPage = () => {
-  const { data, setData, groupedData, DisplayConfig, setDisplayConfig } =
+  const { data, setData, groupedData, DisplayConfig, setDisplayConfig, createNewTicket } =
     useContext(DataContext);
 
   useEffect(() => {
@@ -31,6 +31,22 @@ const KanbanDashBoardPage = () => {
             config={DisplayConfig}
             setConfig={setDisplayConfig}
           />
+        </div>
+        <div>
+          <button className="" onClick={
+            () => {
+              createNewTicket({
+                id: "123",
+                title: "New Ticket",
+                tag: ["tag1", "tag2"],
+                userId: "usr-1",
+                status: "Todo",
+                priority: 1,
+              });
+            }
+          }>
+            New Ticket
+          </button>
         </div>
       </TopBar>
       <div className="kanban-main-container">

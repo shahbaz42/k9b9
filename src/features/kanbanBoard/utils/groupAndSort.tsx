@@ -1,5 +1,12 @@
 import { APIData, GroupedTicket, Group, GroupedData } from "../types";
 
+/**
+ * This method groups the data by status, priority or user
+ * THis method is responsible for rendering various display types.
+ * @param inputData
+ * @param groupBy
+ * @returns
+ */
 export function groupDataBy(
   inputData: APIData,
   groupBy: "status" | "priority" | "user"
@@ -45,3 +52,51 @@ export function groupDataBy(
     groups,
   };
 }
+
+/**
+ * This method sorts the groups of a Grouped Data in relevant order
+ * This method brings order to the chaos
+ * @param groupedData
+ * @returns
+ */
+export const sortInRelevantOrder = (groupedData: GroupedData): GroupedData => {
+  if (groupedData.groupedBy === "status") {
+    const statusOrder = ["Backlog", "Todo", "In progress", "Done", "Cancelled"];
+    const orderedGroupedData = groupedData.groups.sort((a, b) => {
+      const orderA = statusOrder.indexOf(a.name);
+      const orderB = statusOrder.indexOf(b.name);
+      return orderA - orderB;
+    });
+    return { ...groupedData, groups: orderedGroupedData };
+  } else {
+    const orderedGroupedData = groupedData.groups.sort((a, b) =>
+      a.name.localeCompare(b.name)
+    );
+    return { ...groupedData, groups: orderedGroupedData };
+  }
+};
+
+/**
+ * This method sorts the groups of a Grouped Data by priority DESC
+ * @param groupedData
+ * @returns GroupedData
+ */
+export const sortByPriority = (groupedData: GroupedData): GroupedData => {
+  let newGroupedData = { ...groupedData };
+  newGroupedData.groups.forEach((group) => {
+    group.tickets.sort((a, b) => b.priority - a.priority);
+  });
+  return newGroupedData;
+};
+
+/**
+ * This method sorts the groups of a Grouped Data by title ASC
+ * @param groupedData
+ */
+export const sortByTitle = (groupedData: GroupedData): GroupedData => {
+  let newGroupedData = { ...groupedData };
+  newGroupedData.groups.forEach((group) => {
+    group.tickets.sort((a, b) => a.title.localeCompare(b.title));
+  });
+  return newGroupedData;
+};

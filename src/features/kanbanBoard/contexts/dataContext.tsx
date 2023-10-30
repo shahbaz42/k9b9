@@ -1,7 +1,18 @@
 import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
-import { APIData, DataContextProps, GroupedData, groupBy } from "../types";
-import { groupDataBy } from "../utils";
+import {
+  APIData,
+  DataContextProps,
+  GroupedData,
+  groupBy,
+  Ticket,
+} from "../types";
+import {
+  groupDataBy,
+  sortInRelevantOrder,
+  sortByPriority,
+  sortByTitle,
+} from "../utils";
 
 export const DataContext = createContext<DataContextProps>({
   data: null,
@@ -14,6 +25,7 @@ export const DataContext = createContext<DataContextProps>({
     sortBy: "priority",
   },
   setDisplayConfig: () => {},
+  createNewTicket: () => {},
 });
 
 export const DataProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -31,32 +43,18 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({
   const [isLoading, setIsLoading] = useState(false);
 
   /**
-   * This method sorts the groups of a Grouped Data by priority DESC
-   * @param groupedData
+   * This function creates a new ticket
+   * @param ticket
    */
-  const sortByPriority = (groupedData: GroupedData) => {
-    let newGroupedData = { ...groupedData };
-    newGroupedData.groups.forEach((group) => {
-      group.tickets.sort((a, b) => b.priority - a.priority);
-    });
-    console.log(groupedData);
-    setGroupedData(newGroupedData);
+  const createNewTicket = (ticket: Ticket) => {
+    setData((prev) => ({
+      ...prev,
+      tickets: [ticket, ...prev.tickets],
+    }));
   };
 
   /**
-   * This method sorts the groups of a Grouped Data by title ASC
-   * @param groupedData
-   */
-  const sortByTitle = (groupedData: GroupedData) => {
-    let newGroupedData = { ...groupedData };
-    newGroupedData.groups.forEach((group) => {
-      group.tickets.sort((a, b) => a.title.localeCompare(b.title));
-    });
-    setGroupedData(newGroupedData);
-  };
-
-  /**
-   * This useEffect fetches the data from the API and 
+   * This useEffect fetches the data from the API and
    * sets the data and groupedData states
    */
   useEffect(() => {
@@ -72,7 +70,9 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({
       .request(config)
       .then((response) => {
         setData(response.data as APIData);
-        setGroupedData(groupDataBy(response.data as APIData, "priority"));
+        setGroupedData(
+          sortInRelevantOrder(groupDataBy(response.data as APIData, "priority"))
+        );
       })
       .catch((error) => {
         console.log(error);
@@ -83,18 +83,21 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({
   }, []);
 
   /**
-   * This useEffect groups the data 
+   * This useEffect groups the data
    * when groupBy property of the DisplayConfig changes
    */
   useEffect(() => {
     console.log("grouping data");
     if (data) {
-      setGroupedData(groupDataBy(data, DisplayConfig.groupBy as groupBy));
+      setGroupedData(
+        sortInRelevantOrder(groupDataBy(data, DisplayConfig.groupBy as groupBy))
+      );
       setDisplayConfig((prev) => ({
         ...prev,
         sortBy: "select",
       }));
     }
+    console.log("grouped data", groupedData);
   }, [DisplayConfig.groupBy, data]);
 
   /**
@@ -103,9 +106,9 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     if (groupedData) {
       if (DisplayConfig.sortBy === "priority") {
-        sortByPriority(groupedData);
+        setGroupedData(sortByPriority(groupedData));
       } else if (DisplayConfig.sortBy === "title") {
-        sortByTitle(groupedData);
+        setGroupedData(sortByTitle(groupedData));
       }
     }
   }, [DisplayConfig.sortBy]);
@@ -118,6 +121,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({
     setGroupedData,
     DisplayConfig,
     setDisplayConfig,
+    createNewTicket,
   };
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
