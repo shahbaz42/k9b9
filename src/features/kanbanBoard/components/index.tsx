@@ -1,2 +1,3 @@
 export * from './TopBar';
-export * from './CardHolder';
+export * from './TicketCardHolder';
+export * from './TicketCard';

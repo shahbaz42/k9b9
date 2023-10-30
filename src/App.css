@@ -37,6 +37,7 @@
 .kanban-card-holder {
     height: 100%;
     min-width: 250px;
+    max-width: 250px;
     border: 1px solid var(--border-gray);
     scroll-snap-align: start;
 }
@@ -60,6 +61,36 @@
     align-items: center;
 }
 
+.ticket-card-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ticket-card-title{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.ticket-title{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.ticket-card-footer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+/*************** UI Components ****************/
+.user-status-icon{
+    bottom: 0;
+    right: 0;
+}
+
 /**************** standard classes *****************/
 
 .heading-3 {
@@ -78,10 +109,22 @@
     height:24px;
 }
 
+.mt-3{
+    margin-top: 12px;
+}
+
 .icon{
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.relative {
+    position: relative;
 }
 
 .flex {
