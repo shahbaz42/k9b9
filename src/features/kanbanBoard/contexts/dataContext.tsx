@@ -7,18 +7,15 @@ import React, {
   ReactNode,
 } from "react";
 import axios from "axios";
-import { Ticket as TicketType, User as UserType, APIData } from "../types";
-
-interface DataContextProps {
-  data: APIData | null;
-  setData: React.Dispatch<React.SetStateAction<APIData>>;
-  isLoading: boolean;
-}
+import { APIData, DataContextProps, GroupedData } from "../types";
+import { groupDataBy } from "../utils";
 
 export const DataContext = createContext<DataContextProps>({
-    data: null,
-    setData: () => {},
-    isLoading: false,
+  data: null,
+  setData: () => {},
+  isLoading: false,
+  groupedData: null,
+  setGroupedData: () => {},
 });
 
 export const DataProvider: FC<{ children: ReactNode }> = ({ children }) => {
@@ -26,6 +23,10 @@ export const DataProvider: FC<{ children: ReactNode }> = ({ children }) => {
     tickets: [],
     users: [],
   });
+  const [groupedData, setGroupedData] = useState<GroupedData | null>(null);
+  const [groupBy, setGroupBy] = useState<"status" | "priority" | "user">(
+    "status"
+  ); // "status" | "priority" | "user
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -42,6 +43,7 @@ export const DataProvider: FC<{ children: ReactNode }> = ({ children }) => {
       .request(config)
       .then((response) => {
         setData(response.data as APIData);
+        setGroupedData(groupDataBy(response.data as APIData, "priority"));
       })
       .catch((error) => {
         console.log(error);
@@ -51,7 +53,21 @@ export const DataProvider: FC<{ children: ReactNode }> = ({ children }) => {
       });
   }, []);
 
-  const value = { data, setData, isLoading };
+  useEffect(() => {
+    if (data) {
+      setGroupedData(groupDataBy(data, groupBy));
+    }
+  }, [groupBy, data]);
+
+  const value = {
+    data,
+    setData,
+    isLoading,
+    groupedData,
+    setGroupedData,
+    groupBy,
+    setGroupBy,
+  };
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
 };

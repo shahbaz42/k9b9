@@ -1,5 +1,13 @@
 /*************** Contexts  *********************/
 
+export interface DataContextProps {
+  data: APIData | null;
+  setData: React.Dispatch<React.SetStateAction<APIData>>;
+  isLoading: boolean;
+  groupedData: GroupedData | null;
+  setGroupedData: React.Dispatch<React.SetStateAction<GroupedData | null>>;
+}
+
 export interface Ticket {
   id: string;
   title: string;
@@ -18,6 +26,25 @@ export interface User {
 export interface APIData {
   tickets: Ticket[];
   users: User[];
+}
+
+export interface GroupedTicket {
+  id: string;
+  title: string;
+  tag: string[];
+  user: User | undefined;
+  status: string;
+  priority: number;
+}
+
+export interface Group {
+  name: string;
+  tickets: GroupedTicket[];
+}
+
+export interface GroupedData {
+  groupedBy: string;
+  groups: Group[];
 }
 
 /*********** Components *********************/
