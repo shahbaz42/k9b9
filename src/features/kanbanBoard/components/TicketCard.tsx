@@ -6,7 +6,7 @@ import { TicketCardProps } from "../types";
 export const TicketCard = React.forwardRef<HTMLDivElement, TicketCardProps>(
   (
     {
-      className,
+      className="",
       ticketId,
       title,
       status,
@@ -24,7 +24,7 @@ export const TicketCard = React.forwardRef<HTMLDivElement, TicketCardProps>(
     ref
   ) => {
     return (
-      <div ref={ref} className={`${className}`}>
+      <div ref={ref} className={`ticket-card ${className}`}>
         <div className="ticket-card-header">
           <div className="muted-heading-3">{ticketId}</div>
           {showUserIcon && (
@@ -34,11 +34,11 @@ export const TicketCard = React.forwardRef<HTMLDivElement, TicketCardProps>(
             />
           )}
         </div>
-        <div className="ticket-card-title">
+        <div className="ticket-card-title mt-2">
           {showStatusIcon && <div className="icon">{statusIcon}</div>}
-          <div className="heading-3 ticket-title">{title}</div>
+          <div className=" ml-2 heading-3 ticket-title">{title}</div>
         </div>
-        <div className="ticket-card-footer">
+        <div className="ticket-card-footer mt-3">
           {showPriorityIcon && (
             <div className="icon">
               <PriorityIcon />

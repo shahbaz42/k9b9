@@ -5,6 +5,7 @@ export const CheckCircleIcon = () => {
       viewBox="0 0 24 24"
       fill="currentColor"
       className="w-6 h-6"
+      style={{ color: "#5f6bd2" }}
     >
       <path
         fillRule="evenodd"

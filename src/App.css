@@ -4,10 +4,12 @@
   --pure-white: #ffffff;
   --dull-white: #f4f5f8;
   --text-black: #2b2d33;
-  --border-gray: #e1e3e5;
+  --border-gray: #e1e3e5c5;
   --muted-text: #949495;
   --highlight-blue: #5f6bd2;
-  --highlight-yellow: #f1c947;
+  --highlighted-yellow: #f1c947;
+  --highlighted-green: #00b894;
+  --rounded-border: 10px;
 }
 
 /*************** KanbanBoard Navbar ****************/
@@ -30,34 +32,66 @@
   height: calc(100vh - 50px);
   width: 100vw;
   overflow-x: scroll;
-  scroll-snap-type: x proximity;
+  scroll-snap-type: x mandatory;
 }
 
-.kanban-card-holder {
+.ticket-card-holder {
   height: 100%;
-  min-width: 250px;
-  max-width: 250px;
-  border: 1px solid var(--border-gray);
+  min-width: 400px;
+  max-width: 400px;
+  padding: 0 0 0 45px;
+  /* border: 1px solid var(--border-gray); */
   scroll-snap-align: start;
 }
 
-.kanban-card-holder-header {
+@media (max-width: 575.98px) {
+  .ticket-card-holder {
+    min-width: 100%;
+    max-width: 100%;
+    padding: 0 0;
+    margin: 0 8px;
+  }
+}
+
+.ticket-card-holder-header {
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin: 32px 0;
 }
 
-.kanban-card-holder-header-info {
+.ticket-card-holder-header-info {
   display: flex;
   flex-direction: row;
   align-items: center;
+  gap: 12px;
 }
 
-.kanban-card-holder-header-actions {
+.ticket-card-holder-header-info > .icon {
+  margin-left: 8px;
+}
+
+.ticket-card-holder-header-info > .muted-heading-3 {
+  background-color: var(--pure-white);
+  padding: 0 4px;
+  border-radius: var(--rounded-border);
+}
+
+.ticket-card-holder-header-actions {
   display: flex;
   flex-direction: row;
   align-items: center;
+  gap: 12px;
+}
+
+.ticket-card {
+  background-color: var(--pure-white);
+  padding: 20px;
+  border-radius: var(--rounded-border);
+  box-shadow: 2px 2px 77px -34px rgba(0, 0, 0, 0.055);
+  border: 1px solid var(--border-gray);
 }
 
 .ticket-card-header {
@@ -88,12 +122,35 @@
 
 /* AvatarWithStatus */
 
-.avatar-icon {
+.avatar-text{
+  font-size: 14px;
+  left:4px;
+  top:2px;
+  font-weight: 500;
+  color: var(--pure-white)
 }
 
-.avatar-status-icon {
-  bottom: 0;
-  right: 0;
+.avatar-icon{
+  height: 24px;
+  width: 24px;
+  border-radius: 100%;
+}
+
+.user-status-icon{
+  height: 8px;
+  width: 8px;
+  border-radius: 100%;
+  bottom: -3px;
+  right: -3px;
+  border: 2px solid var(--pure-white);
+}
+
+.avatar-status-available {
+  background-color: var(--highlighted-green);
+}
+
+.avatar-status-away {
+  background-color: var(--highlighted-yellow);
 }
 
 /* TagWithCircle */
@@ -106,9 +163,14 @@
 /**************** standard classes *****************/
 
 .heading-3 {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-black);
 }
 
 .muted-heading-3 {
+  font-weight: 500;
+  color: var(--muted-text);
 }
 
 .w-6 {
@@ -117,6 +179,14 @@
 
 .h-6 {
   height: 24px;
+}
+
+.mt-2 {
+  margin-top: 8px;
+}
+
+.ml-2 {
+  margin-left: 8px;
 }
 
 .mt-3 {

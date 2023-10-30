@@ -2,7 +2,7 @@ import React from "react";
 import { TopBarProps } from "../types";
 
 const TopBar = React.forwardRef<HTMLDivElement, TopBarProps>(
-    ({ className, type = "hzScroll", height=50, ...props }, ref) => {
+    ({ className="", type = "hzScroll", height=50, ...props }, ref) => {
         return (
             <>
                 {type === "hzScroll" ? (
