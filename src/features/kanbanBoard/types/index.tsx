@@ -11,10 +11,11 @@ export interface DataContextProps {
 }
 
 export type groupBy = "status" | "priority" | "user";
+export type sortBy = "priority" | "title" | "select";
 
 export interface DisplayConfig {
   groupBy: ("status" | "priority" | "user");
-  sortBy: ("status" | "priority" | "user");
+  sortBy: ("priority" | "title" | "select");
 }
 
 export interface Ticket {

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { SettingsIcon, ChevronDownIcon } from "../../assets/icons";
 import { SmallMenuBox } from ".";
 import { SelectWithLabel } from ".";
-import { ButtonWithPopupMenuProps, groupBy } from "../../types";
+import { ButtonWithPopupMenuProps, groupBy, sortBy } from "../../types";
 
 export const ButtonWithPopupMenu = React.forwardRef<
   HTMLButtonElement,
@@ -42,12 +42,12 @@ export const ButtonWithPopupMenu = React.forwardRef<
             <SelectWithLabel
               className="mt-2"
               label="Sort by"
-              options={["priority"]}
+              options={["select","priority", "title"]}
               value={config.sortBy}
               setValue={(value) => {
                 props.setConfig((prev) => ({
                   ...prev,
-                  sortBy: value as groupBy,
+                  sortBy: value as sortBy,
                 }));
               }}
             />
