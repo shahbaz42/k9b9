@@ -62,8 +62,8 @@ const KanbanDashBoardPage = () => {
                       priority={ticket.priority}
                       tags={ticket.tag}
                       showUserIcon={ groupedData.groupedBy === "user" ? false : true}
-                      showStatusIcon={true}
-                      showPriorityIcon={true}
+                      showStatusIcon={ groupedData.groupedBy === "status" ? false : true}
+                      showPriorityIcon={ groupedData.groupedBy === "priority" ? false : true}
                       key={index}
                     />
                   );
