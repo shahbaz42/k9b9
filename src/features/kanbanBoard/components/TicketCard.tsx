@@ -50,8 +50,7 @@ export const TicketCard = React.forwardRef<HTMLDivElement, TicketCardProps>(
                 <TagWithCircle
                   key={index}
                   className="ml-2"
-                  color="#
-                  #c6c7c8"
+                  color="#c6c7c8"
                   tagText={tag}
                 />
               );
