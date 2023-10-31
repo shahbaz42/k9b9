@@ -1,107 +1,70 @@
-# Deployed Link
+## Deployed Link
 https://k9b9.netlify.app/
+S
 
-# 🗄️ Project Structure
+## Installation Steps
 
-Most of the code lives in the `src` folder and looks like this:
+1. Clone the repository
 
-```sh
-src
-|
-+-- assets            # assets folder can contain all the static files such as images, fonts, etc.
-|
-+-- components        # shared components used across the entire application
-|
-+-- config            # all the global configuration, env variables etc. get exported from here and used in the app
-|
-+-- features          # feature based modules
-|
-+-- hooks             # shared hooks used across the entire application
-|
-+-- lib               # re-exporting different libraries preconfigured for the application
-|
-+-- providers         # all of the application providers
-|
-+-- routes            # routes configuration
-|
-+-- stores            # global state stores
-|
-+-- test              # test utilities and mock server
-|
-+-- types             # base types used across the application
-|
-+-- utils             # shared utility functions
+```bash
+git clone
 ```
 
-This helps the application scale in the easiest and most maintainable way, keeping most of the code inside the `features` folder, which contains different feature-based things. Every `feature` folder contains domain specific code for a given feature.
+2. Change the working directory
 
-A feature could have the following structure:
-
-```sh
-src/features/awesome-feature
-|
-+-- api         # exported API request declarations and api hooks related to a specific feature
-|
-+-- assets      # assets folder can contain all the static files for a specific feature
-|
-+-- components  # components scoped to a specific feature
-|
-+-- hooks       # hooks scoped to a specific feature
-|
-+-- routes      # route components for a specific feature pages
-|
-+-- stores      # state stores for a specific feature
-|
-+-- types       # typescript types for TS specific feature domain
-|
-+-- utils       # utility functions for a specific feature
-|
-+-- index.ts    # entry point for the feature, it should serve as the public API of the given feature and exports everything that should be used outside the feature
+```bash
+cd k9b9
 ```
 
-# Getting Started with Create React App
+3. Install dependencies
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+```bash
+npm install
+```
 
-## Available Scripts
+4. Run the app
 
-In the project directory, you can run:
+```bash
+npm start
+```
 
-### `npm start`
+You are all set! Open [localhost:3000](http://localhost:3000/) to see the app.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Building and Running for Production
 
-### `npm test`
+1. Generate a full static production build
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+npm run build
+```
 
-### `npm run build`
+2. Preview the site as it will appear once deployed
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+npm run serve
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Features
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Written in Typescript**: Developed with strict type checking enabled.
+- **Three Distinct Data Grouping Methods**:
+  1. *By Status*: Group tickets based on their current status.
+  2. *By User*: Arrange tickets according to the assigned user.
+  3. *By Priority*: Group tickets based on their priority level.
 
-### `npm run eject`
+- **Sortable Ticket Display**:
+  1. *Priority*: Arrange tickets in descending order of priority.
+  2. *Title*: Sort tickets in ascending order based on their title.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- **Responsive Design**: Works seamlessly on all screen sizes.
+- **User State Persistence**: Utilizes local storage to persist user states.
+- **No UI Libraries or CSS Frameworks**: Developed without dependencies on UI libraries or CSS frameworks like Bootstrap, Tailwind, Material UI, etc.
+- **Component Structuring**: Components are appropriately structured to promote reusability and maintainability.
+- **Code Structuring**: Code is appropriately structured to promote reusability and maintainability.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Project Structure
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+https://github.com/alan2207/bulletproof-react/blob/master/docs/project-structure.md
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).

@@ -29,6 +29,7 @@ export const TicketCard = React.forwardRef<HTMLDivElement, TicketCardProps>(
   ) => {
     const { data, setData } = React.useContext(DataContext);
     const [openAction, setOpenAction] = useState(false);
+    const [ selectedAction, setSelectedAction ] = useState("");
 
     function updateStatus(status: string) {
       if (!data) return;
@@ -99,7 +100,10 @@ export const TicketCard = React.forwardRef<HTMLDivElement, TicketCardProps>(
               <DeleteIcon />
             </button>
             <select
+              value={selectedAction}
+
               onChange={(e) => {
+                if(e.target.value === "") return;
                 updateStatus(e.target.value);
               }}
               className="input-comp-status"

@@ -26,6 +26,17 @@ export const TicketCardHolder = React.forwardRef<
     setId(`CAM-${getTopId() + 1}`);
   }, [data]);
 
+  useEffect(() => {
+    if(groupedData?.groupedBy === "priority") {
+      setPriority(Number(group.name));
+    }
+
+    if(groupedData?.groupedBy === "status") {
+      setStatus(name);
+    }
+
+  }, [group]);
+
   /**
    * This function returns the top id of the tickets
    * @returns
