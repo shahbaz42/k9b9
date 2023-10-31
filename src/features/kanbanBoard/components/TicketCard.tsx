@@ -104,23 +104,26 @@ export const TicketCard = React.forwardRef<HTMLDivElement, TicketCardProps>(
               }}
               className="input-comp-status"
             >
+              <option value="" selected>
+                Choose Action
+              </option>
               {!(status === "Todo") && (
-                <option value="Todo" selected>
+                <option value="Todo" >
                   Todo
                 </option>
               )}
               {!(status === "In progress") && (
-                <option value="In progress" selected>
+                <option value="In progress" >
                   In progress
                 </option>
               )}
               {!(status === "Done") && (
-                <option value="Done" selected>
+                <option value="Done" >
                   Done
                 </option>
               )}
               {!(status === "Backlog") && (
-                <option value="Backlog" selected>
+                <option value="Backlog" >
                   Backlog
                 </option>
               )}

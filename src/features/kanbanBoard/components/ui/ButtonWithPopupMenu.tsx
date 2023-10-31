@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { SettingsIcon, ChevronDownIcon } from "../../assets/icons";
 import { SmallMenuBox } from ".";
 import { SelectWithLabel } from ".";
@@ -9,6 +9,10 @@ export const ButtonWithPopupMenu = React.forwardRef<
   ButtonWithPopupMenuProps
 >(({ config, className, ...props }, ref) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [config]);
 
   return (
     <>
