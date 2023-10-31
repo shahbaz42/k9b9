@@ -52,6 +52,7 @@ const KanbanDashBoardPage = () => {
                     />
                   )
                 }
+                group = {group}
                 count={group.tickets.length}
                 key={index}
               >

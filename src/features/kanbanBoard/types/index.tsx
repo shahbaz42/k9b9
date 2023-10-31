@@ -85,6 +85,7 @@ export type TicketCardHolderProps = {
   statusIcon?: React.ReactNode;
   name: string;
   count?: number;
+  group: Group;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 export type TicketCardProps = {
