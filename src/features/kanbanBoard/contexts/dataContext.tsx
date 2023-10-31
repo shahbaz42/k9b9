@@ -31,9 +31,12 @@ export const DataContext = createContext<DataContextProps>({
 export const DataProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [data, setData] = useState<APIData>({
-    tickets: [],
-    users: [],
+  const [data, setData] = useState<APIData>(() => {
+    const storedData = localStorage.getItem("kanban_board_data");
+    if (storedData) {
+      return JSON.parse(storedData);
+    }
+    return { tickets: [], users: [] };
   });
   const [groupedData, setGroupedData] = useState<GroupedData | null>(null);
   const [DisplayConfig, setDisplayConfig] = useState({
@@ -73,6 +76,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({
         setGroupedData(
           sortInRelevantOrder(groupDataBy(response.data as APIData, "priority"))
         );
+        localStorage.setItem("kanban_board_data", JSON.stringify(response.data));
       })
       .catch((error) => {
         console.log(error);
@@ -112,6 +116,10 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({
       }
     }
   }, [DisplayConfig.sortBy]);
+
+  useEffect(() => {
+    localStorage.setItem("kanban_board_data", JSON.stringify(data));
+  }, [data]);
 
   const value = {
     data,
