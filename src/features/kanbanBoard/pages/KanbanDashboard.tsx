@@ -26,7 +26,7 @@ const KanbanDashBoardPage = () => {
   return (
     <>
       <TopBar type="hzScroll" className="topbar-container" height={64}>
-        <div className="ml-2">
+        <div className="topbar-container-wrapper">
           {" "}
           <ButtonWithPopupMenu
             config={DisplayConfig}

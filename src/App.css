@@ -38,13 +38,17 @@
   scroll-snap-type: x mandatory;
 }
 
-.topbar-container {
-  margin: 0 0 0 48px;
+.topbar-container-wrapper {
+  padding-left: 45px;
 }
 
 @media (max-width: 575.98px) {
   .topbar-container {
     margin: 0;
+  }
+
+  .topbar-container-wrapper {
+    padding-left: 12px;
   }
 }
 
