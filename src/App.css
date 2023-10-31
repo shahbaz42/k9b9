@@ -78,13 +78,18 @@ body {
 
 .ticket-card-holder-group {
   padding: 10px;
+  height: calc(100vh - 100px);
+  overflow-y: scroll;
+  scrollbar-width: none; /* hide scrollbar for Firefox */
+  -ms-overflow-style: none; 
 }
 
 .ticket-card-holder-content {
   height: calc(100% - 100px);
   overflow-y: scroll;
   scrollbar-width: none; /* hide scrollbar for Firefox */
-  -ms-overflow-style: none; /* hide scrollbar for IE and Edge */
+  -ms-overflow-style: none; 
+  /* hide scrollbar for IE and Edge */
 }
 
 @media (max-width: 575.98px) {

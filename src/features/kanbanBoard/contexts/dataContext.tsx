@@ -69,6 +69,20 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({
       headers: {},
     };
 
+    if (localStorage.getItem("kanban_board_data")) {
+      setData(JSON.parse(localStorage.getItem("kanban_board_data") as string));
+      setGroupedData(
+        sortInRelevantOrder(
+          groupDataBy(
+            JSON.parse(localStorage.getItem("kanban_board_data") as string),
+            "priority"
+          )
+        )
+      );
+      setIsLoading(false);
+      return;
+    }
+
     axios
       .request(config)
       .then((response) => {
