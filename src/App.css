@@ -61,7 +61,7 @@
   scroll-snap-align: start;
 }
 
-.ticket-card-holder-group{
+.ticket-card-holder-group {
   padding: 10px;
 }
 
@@ -146,6 +146,14 @@
   align-items: center;
 }
 
+.card-action-footer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: right;
+  gap: 8px;
+}
 /*************** UI Components ****************/
 
 .hz-input-group {
@@ -166,7 +174,39 @@
   border: 1px solid var(--border-gray);
 }
 
-.hz-input-group > .disabled{
+.input-comp-status {
+  height: 30px;
+  width: 80px;
+  font-weight: 500;
+  padding: 0 4px;
+  background-color: var(--pure-white);
+  border-radius: 8px;
+  border: 1px solid var(--border-gray);
+}
+.input-comp-status:focus {
+  outline: none;
+}
+
+.delete-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 6px 6px;
+  border-radius: var(--rounded-border);
+  border: 1px solid var(--border-gray);
+  background-color: #e93e5b;
+  color: var(--pure-white);
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+}
+.delete-btn:focus {
+  outline: none;
+}
+
+.hz-input-group > .disabled {
   background-color: var(--dull-white);
   border: 1px solid var(--border-gray);
   color: var(--muted-text);
@@ -176,7 +216,7 @@
   border: 1px solid var(--dark-border-gray);
 }
 
-.btn-left-wrapper{
+.btn-left-wrapper {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -184,7 +224,7 @@
 }
 
 /* Create Button */
-.create_button{
+.create_button {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -307,6 +347,10 @@
 
 /**************** standard classes *****************/
 
+.cursor {
+  cursor: pointer;
+}
+
 .heading-3 {
   font-size: 16px;
   font-weight: 500;
@@ -334,11 +378,11 @@
   width: 20px;
 }
 
-.w-4{
+.w-4 {
   width: 16px;
 }
 
-.h-4{
+.h-4 {
   height: 16px;
 }
 
@@ -362,7 +406,7 @@
   margin-top: 12px;
 }
 
-.px-2{
+.px-2 {
   padding-left: 8px;
   padding-right: 8px;
 }

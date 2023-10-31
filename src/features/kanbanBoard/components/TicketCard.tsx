@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { PriorityIcon } from "../assets/icons";
 import { AvatarWithAvailability, TagWithCircle } from "./ui";
 import { TicketCardProps } from "../types";
 import { getPriorityIcon } from "../utils";
+import { DeleteIcon } from "../assets/icons";
+import { DataContext } from "../contexts";
+import { Ticket } from "../types";
 
 export const TicketCard = React.forwardRef<HTMLDivElement, TicketCardProps>(
   (
     {
-      className="",
+      className = "",
       ticketId,
       title,
       status,
@@ -24,8 +27,34 @@ export const TicketCard = React.forwardRef<HTMLDivElement, TicketCardProps>(
     },
     ref
   ) => {
+    const { data, setData } = React.useContext(DataContext);
+    const [openAction, setOpenAction] = useState(false);
+
+    function updateStatus(status: string) {
+      if (!data) return;
+      const newTickets = data.tickets.map((ticket) => {
+        if (ticket.id === ticketId) {
+          return {
+            ...ticket,
+            status: status,
+          };
+        }
+        return ticket;
+      });
+      setData({
+        ...data,
+        tickets: newTickets as Ticket[],
+      });
+    }
+
     return (
-      <div ref={ref} className={`ticket-card ${className}`}>
+      <div
+        ref={ref}
+        onClick={() => {
+          setOpenAction(!openAction);
+        }}
+        className={`ticket-card cursor ${className}`}
+      >
         <div className="ticket-card-header">
           <div className="muted-heading-3">{ticketId}</div>
           {showUserIcon && (
@@ -56,7 +85,47 @@ export const TicketCard = React.forwardRef<HTMLDivElement, TicketCardProps>(
                 />
               );
             })}
+          <div></div>
         </div>
+        {openAction && (
+          <div className="card-action-footer">
+            <button
+              onClick={(e) => {
+                updateStatus("Cancelled");
+              }}
+              className="delete-btn"
+            >
+              <DeleteIcon />
+            </button>
+            <select
+              onChange={(e) => {
+                updateStatus(e.target.value);
+              }}
+              className="input-comp-status"
+            >
+              {!(status === "Todo") && (
+                <option value="Todo" selected>
+                  Todo
+                </option>
+              )}
+              {!(status === "In progress") && (
+                <option value="In progress" selected>
+                  In progress
+                </option>
+              )}
+              {!(status === "Done") && (
+                <option value="Done" selected>
+                  Done
+                </option>
+              )}
+              {!(status === "Backlog") && (
+                <option value="Backlog" selected>
+                  Backlog
+                </option>
+              )}
+            </select>
+          </div>
+        )}
       </div>
     );
   }
