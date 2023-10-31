@@ -48,44 +48,45 @@ export const TicketCard = React.forwardRef<HTMLDivElement, TicketCardProps>(
     }
 
     return (
-      <div
-        ref={ref}
-        onClick={() => {
-          setOpenAction(!openAction);
-        }}
-        className={`ticket-card cursor ${className}`}
-      >
-        <div className="ticket-card-header">
-          <div className="muted-heading-3">{ticketId}</div>
-          {showUserIcon && (
-            <AvatarWithAvailability
-              avatarText={userIconText}
-              isAvailable={userAvailablity}
-            />
-          )}
-        </div>
-        <div className="ticket-card-title mt-2">
-          {showStatusIcon && <div className="icon">{statusIcon}</div>}
-          <div className=" ml-2 heading-3 ticket-title">{title}</div>
-        </div>
-        <div className="ticket-card-footer mt-3">
-          {showPriorityIcon && (
-            <div className="icon grey-icon">
-              {getPriorityIcon(priority) || <PriorityIcon />}
-            </div>
-          )}
-          {tags &&
-            tags.map((tag, index) => {
-              return (
-                <TagWithCircle
-                  key={index}
-                  className="ml-2"
-                  color="#c6c7c8"
-                  tagText={tag}
-                />
-              );
-            })}
-          <div></div>
+      <div ref={ref} className={`ticket-card cursor ${className}`}>
+        <div
+          className="cursor"
+          onClick={() => {
+            setOpenAction(!openAction);
+          }}
+        >
+          <div className="ticket-card-header">
+            <div className="muted-heading-3">{ticketId}</div>
+            {showUserIcon && (
+              <AvatarWithAvailability
+                avatarText={userIconText}
+                isAvailable={userAvailablity}
+              />
+            )}
+          </div>
+          <div className="ticket-card-title mt-2">
+            {showStatusIcon && <div className="icon">{statusIcon}</div>}
+            <div className=" ml-2 heading-3 ticket-title">{title}</div>
+          </div>
+          <div className="ticket-card-footer mt-3">
+            {showPriorityIcon && (
+              <div className="icon grey-icon">
+                {getPriorityIcon(priority) || <PriorityIcon />}
+              </div>
+            )}
+            {tags &&
+              tags.map((tag, index) => {
+                return (
+                  <TagWithCircle
+                    key={index}
+                    className="ml-2"
+                    color="#c6c7c8"
+                    tagText={tag}
+                  />
+                );
+              })}
+            <div></div>
+          </div>
         </div>
         {openAction && (
           <div className="card-action-footer">
