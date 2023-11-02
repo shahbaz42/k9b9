@@ -31,6 +31,8 @@ export const TicketCard = React.forwardRef<HTMLDivElement, TicketCardProps>(
     const [openAction, setOpenAction] = useState(false);
     const [ selectedAction, setSelectedAction ] = useState("");
 
+    const [isDragging, setIsDragging] = useState(false);
+
     function updateStatus(status: string) {
       if (!data) return;
       const newTickets = data.tickets.map((ticket) => {
@@ -48,8 +50,24 @@ export const TicketCard = React.forwardRef<HTMLDivElement, TicketCardProps>(
       });
     }
 
+    const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
+      // e.preventDefault();
+      setIsDragging(true);
+      e.dataTransfer.setData("text/plain", ticketId);
+      console.log("dragging")
+    };
+
+    const handleDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
+      setIsDragging(false);
+      console.log("dragging end")
+    }
+
     return (
-      <div ref={ref} className={`ticket-card cursor ${className}`}>
+      <div draggable ref={ref} className={`ticket-card cursor ${className}`} {...props} 
+        onDragStart={(e) => handleDragStart(e)}
+        onDragEnd={(e) => handleDragEnd(e)}
+        style={{ opacity: isDragging ? 0.35 : 1 }}
+      >
         <div
           className="cursor"
           onClick={() => {

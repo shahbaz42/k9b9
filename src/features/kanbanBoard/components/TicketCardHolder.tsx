@@ -3,21 +3,32 @@ import { TicketCardHolderProps } from "../types";
 import { PlusIcon, EllipsisHzIcon, XMarkIcon } from "../assets/icons";
 import { DataContext } from "../contexts";
 import { PriorityMap } from "../utils";
+import { Ticket } from "../types";
+import { getUserID } from  "../utils"
 
 export const TicketCardHolder = React.forwardRef<
   HTMLDivElement,
   TicketCardHolderProps
 >(({ className = "", statusIcon, name, count, group, ...props }, ref) => {
-  const { data, createNewTicket, groupedData } = React.useContext(DataContext);
+  const { data, setData, createNewTicket, groupedData } =
+    React.useContext(DataContext);
 
   const [addingTicket, setAddingTicket] = useState(false);
 
   const [id, setId] = useState(`CAM-${getTopId() + 1}`);
   const [title, setTitle] = useState("");
   const [tag, setTag] = useState("");
-  const [userId, setUserId] = useState(groupedData?.groupedBy === "user" ? data?.users.find(user => user.name === group.name)?.id as string : "");
-  const [status, setStatus] = useState( groupedData?.groupedBy === "status" ? name : "Todo");
-  const [priority, setPriority] = useState( groupedData?.groupedBy === "priority" ? Number(group.name) : 0 );
+  const [userId, setUserId] = useState(
+    groupedData?.groupedBy === "user"
+      ? (data?.users.find((user) => user.name === group.name)?.id as string)
+      : ""
+  );
+  const [status, setStatus] = useState(
+    groupedData?.groupedBy === "status" ? name : "Todo"
+  );
+  const [priority, setPriority] = useState(
+    groupedData?.groupedBy === "priority" ? Number(group.name) : 0
+  );
 
   /**
    * This is to make sure that the id is always unique
@@ -27,11 +38,11 @@ export const TicketCardHolder = React.forwardRef<
   }, [data]);
 
   useEffect(() => {
-    if(groupedData?.groupedBy === "priority") {
+    if (groupedData?.groupedBy === "priority") {
       setPriority(Number(group.name));
     }
 
-    if(groupedData?.groupedBy === "status") {
+    if (groupedData?.groupedBy === "status") {
       setStatus(name);
     }
 
@@ -75,12 +86,103 @@ export const TicketCardHolder = React.forwardRef<
     setAddingTicket(false);
     setTitle("");
     setTag("");
-    { !(groupedData?.groupedBy === "status") && setStatus("Todo")}
-    { !(groupedData?.groupedBy === "priority") && setPriority(0)}
+    {
+      !(groupedData?.groupedBy === "status") && setStatus("Todo");
+    }
+    {
+      !(groupedData?.groupedBy === "priority") && setPriority(0);
+    }
   }
 
+  const updateStatus = (status: string, ticketId: string) => {
+    if (!data) return;
+    const newTickets = data.tickets.map((ticket) => {
+      if (ticket.id === ticketId) {
+        return {
+          ...ticket,
+          status: status,
+        };
+      }
+      return ticket;
+    });
+    setData({
+      ...data,
+      tickets: newTickets as Ticket[],
+    });
+  };
+
+  const updatePriority = (priority: number, ticketId: string):void => {
+    console.log("name", name);
+    if(!data) return;
+    const newTickets = data?.tickets.map((ticket,index) => {
+      if(ticket.id === ticketId ){
+        return {
+          ...ticket,
+          priority: Number(name) /// check if error
+        }
+      }
+      return ticket;
+    })
+
+    setData({
+      ...data,
+      tickets: newTickets as Ticket[]
+    })
+  }
+
+  const reAssignUser = (name:string, ticketId: string):void => {
+    if(!data) return;
+    const id = getUserID(name, data)
+    const newTickets = data?.tickets.map((ticket,index) => {
+      if(ticket.id === ticketId ){
+        return {
+          ...ticket,
+          userId: id /// check if error
+        }
+      }
+      return ticket;
+    })
+
+    setData({
+      ...data,
+      tickets: newTickets as Ticket[]
+    })
+
+  }
+
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    const ticketId = e.dataTransfer.getData("text/plain");
+
+    if (groupedData?.groupedBy === "status") {
+      updateStatus(name, ticketId);
+    }
+
+    if (groupedData?.groupedBy === "priority"){
+      updatePriority(priority, ticketId);
+    }
+
+    if (groupedData?.groupedBy === "user"){
+      reAssignUser(name, ticketId);
+    }
+
+
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    console.log("drag over");
+  };
+
   return (
-    <div className={`ticket-card-holder ${className}`} ref={ref} {...props}>
+    <div
+      className={`ticket-card-holder ${className}`}
+      ref={ref}
+      {...props}
+      onDrop={handleDrop}
+      onDragOver={handleDragOver}
+    >
       <div className="ticket-card-holder-group">
         <div className="ticket-card-holder-header">
           <div className="ticket-card-holder-header-info">
@@ -111,7 +213,7 @@ export const TicketCardHolder = React.forwardRef<
         <div className="ticket-card-holder-content">
           {addingTicket && (
             <div className="ticket-card ">
-              <div style={{display:"none"}} className="hz-input-group">
+              <div style={{ display: "none" }} className="hz-input-group">
                 <label className="text-smaller text-semibold">Ticket ID</label>
                 <input
                   className="input-comp disabled"
@@ -165,7 +267,12 @@ export const TicketCardHolder = React.forwardRef<
                     })}
                 </select>
               </div>
-              <div style={{ display: `${(groupedData?.groupedBy === "status")&& "none"}` }}  className="hz-input-group mt-2">
+              <div
+                style={{
+                  display: `${groupedData?.groupedBy === "status" && "none"}`,
+                }}
+                className="hz-input-group mt-2"
+              >
                 <label className="text-smaller text-semibold">Status</label>
                 <select
                   value={status}
@@ -181,7 +288,12 @@ export const TicketCardHolder = React.forwardRef<
                   <option value="Backlog">Backlog</option>
                 </select>
               </div>
-              <div style={{ display: `${(groupedData?.groupedBy === "priority")&& "none"}` }}  className="hz-input-group mt-2">
+              <div
+                style={{
+                  display: `${groupedData?.groupedBy === "priority" && "none"}`,
+                }}
+                className="hz-input-group mt-2"
+              >
                 <label className="text-smaller text-semibold">Priority</label>
                 <select
                   disabled={groupedData?.groupedBy === "priority"}
@@ -212,7 +324,6 @@ export const TicketCardHolder = React.forwardRef<
               </div>
             </div>
           )}
-
           {props.children}
         </div>
       </div>

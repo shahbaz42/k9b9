@@ -96,3 +96,13 @@ export const getAvailabilty = (name: string, data: APIData) => {
   const user = data.users.find((user) => user.name === name);
   return user?.available || false;
 };
+
+export const getUserID = (name: string, data: APIData) => {
+  let id = ""
+  const user = data.users.map((user, index) => {
+    if(user.name === name) {
+      id = user.id;
+    }
+  })
+  return id;
+}
